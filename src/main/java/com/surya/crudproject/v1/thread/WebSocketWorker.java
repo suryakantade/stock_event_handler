@@ -36,7 +36,7 @@ public class WebSocketWorker extends Thread {
     try {
       message = CommonConstant.OBJECT_MAPPER.writeValueAsString(barModel);
       socketServerUtil.writeToClient(message);
-      //log.info("{}",barModel);
+      log.info("{}",barModel);
     } catch (JsonProcessingException e) {
       log.error("Exception occurred ", e);
     }
