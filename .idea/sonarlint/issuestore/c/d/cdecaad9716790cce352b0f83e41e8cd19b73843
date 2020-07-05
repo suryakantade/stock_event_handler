@@ -1,6 +1,0 @@
-
-ˆ"squid:ClassVariableVisibilityCheck"TMake workflow a static final constant or non-public and provide accessors if needed.(ÏÀšU8íŠ»¦¡.
-‡"squid:ClassVariableVisibilityCheck"TMake filePath a static final constant or non-public and provide accessors if needed.(€çàÿÿÿÿÿ
-9squid:S3066"#Lower the visibility of this field.(ÏÀšU
-csquid:UnusedPrivateMethod"9Remove this unused private "FileMappingType" constructor.(İ£ÄĞÿÿÿÿÿ
-?squid:S3066"#Lower the visibility of this field.(€çàÿÿÿÿÿ

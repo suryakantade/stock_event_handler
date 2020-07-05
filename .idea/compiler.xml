@@ -5,10 +5,8 @@
       <profile default="true" name="Default" enabled="true" />
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="com.shortener.crud_project.main" target="1.8" />
-      <module name="com.shortener.crud_project.test" target="1.8" />
-      <module name="com.shortener.url-shortener.main" target="1.8" />
-      <module name="com.shortener.url-shortener.test" target="1.8" />
+      <module name="com.shortener.stock_event_handlers.main" target="1.8" />
+      <module name="com.shortener.stock_event_handlers.test" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>

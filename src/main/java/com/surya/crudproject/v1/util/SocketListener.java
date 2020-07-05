@@ -30,7 +30,7 @@ public class SocketListener {
       String str = null;
       try {
         str = (String) dis.readUTF();
-        log.info("message => {}" , str);
+        //log.info("message => {}" , str);
       } catch (IOException e) {
         //e.printStackTrace();
       }
