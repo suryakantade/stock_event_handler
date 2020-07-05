@@ -17,7 +17,7 @@ apply plugin: 'org.springframework.boot'
 apply plugin: "jacoco"
 
 jar {
-    baseName = 'crud_project'
+    baseName = 'stock_event_handlers'
     version =  '1.0.0-SNAPSHOT'
 }
 

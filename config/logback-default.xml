@@ -2,7 +2,7 @@
 <configuration scan="true" scanPeriod="2 minutes">
 	<appender name="consoleAppender" class="ch.qos.logback.core.ConsoleAppender">
 		<encoder class="net.logstash.logback.encoder.LogstashEncoder">
-			<customFields>{"app_name":"crud_project","log_type":"app"}</customFields>
+			<customFields>{"app_name":"stock_event_handlers","log_type":"app"}</customFields>
 			<timeZone>UTC</timeZone>
 
 		</encoder>
@@ -10,16 +10,16 @@
 
 	<appender name="dailyRollingFileAppender"
 			  class="ch.qos.logback.core.rolling.RollingFileAppender">
-		<File>logs/crud_project.log</File>
+		<File>logs/stock_event_handlers.log</File>
 		<rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
 			<!-- daily rollover -->
-			<FileNamePattern>logs/crud_project.%d{dd-MM-yyyy}.%i.log</FileNamePattern>
+			<FileNamePattern>logs/stock_event_handlers.%d{dd-MM-yyyy}.%i.log</FileNamePattern>
 			<maxFileSize>100mb</maxFileSize>
 			<!-- keep 15 days' worth of history -->
 			<maxHistory>15</maxHistory>
 		</rollingPolicy>
 		<encoder class="net.logstash.logback.encoder.LogstashEncoder">
-			<customFields>{"app_name":"crud_project","log_type":"app"}</customFields>
+			<customFields>{"app_name":"stock_event_handlers","log_type":"app"}</customFields>
 			<includeCallerData>true</includeCallerData>
 			<timeZone>UTC</timeZone>
 

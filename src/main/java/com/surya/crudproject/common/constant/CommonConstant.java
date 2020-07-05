@@ -1,15 +1,16 @@
 package com.surya.crudproject.common.constant;
 
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 public class CommonConstant {
   public static final String VERSION_ONE = "/v1.0";
   public static final String GET = "GET";
   public static final String PUT = "PUT";
   public static final String POST = "POST";
   public static final String DELETE = "DELETE";
-  public static final String REDIS_KEY_PREFIX = "r";
-  public static final String POSTGRESQL_KEY_PREFIX = "p";
-  public static final String MONGO_KEY_PREFIX = "m";
-  public static final String ERROR_PAGE_STRING =
-      "https://github.com/suryakantade/url-shortner/wiki";
+  public static final String DATE_FORMAT = "YYYY-MM-DD HH:mm:ss";
+  public static final String SPACE = " ";
+  public static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
+
 }

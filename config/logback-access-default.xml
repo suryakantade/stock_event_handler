@@ -3,7 +3,7 @@
 	<appender name="consoleAppender" class="ch.qos.logback.core.ConsoleAppender">
 		<encoder class="net.logstash.logback.encoder.LogstashAccessEncoder">
 			<customFields>
-				{"app_name":"crud_project","log_type":"access"}
+				{"app_name":"stock_event_handlers","log_type":"access"}
 			</customFields>
 			<fieldNames>
 				<fieldsRequestHeaders>@fields.request_headers</fieldsRequestHeaders>
@@ -18,17 +18,17 @@
 
 	<appender name="dailyRollingFileAppender"
 		class="ch.qos.logback.core.rolling.RollingFileAppender">
-		<File>logs/crud_project-access.log</File>
+		<File>logs/stock_event_handlers-access.log</File>
 		<rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
 			<!-- daily rollover -->
-			<FileNamePattern>logs/crud_project-access.%d{dd-MM-yyyy}.%i.log</FileNamePattern>
+			<FileNamePattern>logs/stock_event_handlers-access.%d{dd-MM-yyyy}.%i.log</FileNamePattern>
 			<maxFileSize>100mb</maxFileSize>
 			<!-- keep 15 days' worth of history -->
 			<maxHistory>15</maxHistory>
 		</rollingPolicy>
 		<encoder class="net.logstash.logback.encoder.LogstashAccessEncoder">
 			<customFields>
-				{"app_name":"crud_project","log_type":"access"}
+				{"app_name":"stock_event_handlers","log_type":"access"}
 			</customFields>
 			<fieldNames>
 				<fieldsRequestHeaders>@fields.request_headers</fieldsRequestHeaders>

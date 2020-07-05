@@ -1,25 +1,28 @@
 package com.surya.crudproject.common.util;
 
-import org.springframework.beans.factory.annotation.Value;
+import com.surya.crudproject.common.constant.CommonConstant;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
-import java.util.Calendar;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
+
+@Slf4j
 @Component("com.surya.crudproject.common.util.GenericUtility")
 public class GenericUtility {
 
-  @Value("${short.url.host}")
-  private String shortUrlHost;
-
-  public Long getCurrentTime() {
-    return Calendar.getInstance().getTimeInMillis();
+  public static Long findTimeStampFromStringDate(String date){
+    SimpleDateFormat dateFormat = new SimpleDateFormat(CommonConstant.DATE_FORMAT);
+    Long longTime = null;
+    try {
+      Date d = dateFormat.parse(date);
+      longTime = d.getTime();
+    } catch (ParseException e) {
+      log.error("Error occurred while parsing date : {}", date);
+    }
+    return longTime;
   }
 
-  public String generateShortUrl( String prefix, String token) {
-    return prefix.concat(token);
-  }
-
-  public String combineHost(String token) {
-    return shortUrlHost.concat(token);
-  }
 }

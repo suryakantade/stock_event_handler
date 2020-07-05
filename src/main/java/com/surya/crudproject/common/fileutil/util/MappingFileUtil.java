@@ -5,13 +5,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.surya.crudproject.common.exception.CrudProjectException;
 import com.surya.crudproject.common.fileutil.model.FileMappingType;
 import com.surya.crudproject.common.model.CrudProjectStatusCode;
-import com.surya.crudproject.v1.entity.CrudProjectEntity;
-import com.surya.crudproject.v1.model.Event;
-import com.surya.crudproject.v1.model.Location;
-import com.surya.crudproject.v1.model.User;
+import com.surya.crudproject.v1.model.SubscriptionConfig;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang3.BooleanUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
 
@@ -25,7 +23,7 @@ import java.util.List;
 import java.util.Map;
 
 @Slf4j
-@Component("com.peoplehum.reportsync.common.util.MappingFileUtil")
+@Component("com.surya.crudproject.common.fileutil.util.MappingFileUtil")
 public class MappingFileUtil {
 
   @Resource(name = "fileUtils")
@@ -35,9 +33,9 @@ public class MappingFileUtil {
   private ObjectMapper objectMapper;
 
   private Map<FileMappingType, String> storedFileData = null;
-  private List<Event> dummyCrudDataSet;
-  private List<Location> dummyLocation;
-  private List<User> dummyUser;
+
+  private List<SubscriptionConfig> configList = null;
+
 
   /*
    * read all files while loading and keep it in a map
@@ -49,7 +47,8 @@ public class MappingFileUtil {
     List<FileMappingType> fileMappings = FileMappingType.getFileMappingList();
     synchronized (this.storedFileData) {
       fileMappings.forEach(fileMapping -> {
-        if (StringUtils.isNotBlank(fileMapping.filePath)) {
+        if (StringUtils.isNotBlank(fileMapping.filePath) && BooleanUtils
+            .isTrue(fileMapping.loadOnInit)) {
           populate(fileMapping, fileMapping.filePath);
         }
       });
@@ -58,6 +57,7 @@ public class MappingFileUtil {
 
   private void populate(FileMappingType type, final String filePath) {
     try {
+
       String fileContent = fileUtils.readFileToString(new File(filePath), StandardCharsets.UTF_8);
       storedFileData.put(type, fileContent);
     } catch (IOException e) {
@@ -73,64 +73,25 @@ public class MappingFileUtil {
     return this.storedFileData.get(fileMapping);
   }
 
-  public List<CrudProjectEntity> getDummyDataForCrudOperation(FileMappingType fileMapping) {
+
+  public List<SubscriptionConfig> getConfigList(FileMappingType fileMapping) {
     log.info("fetching updatable attributes for fileMapping: {}", fileMapping);
-    List<String> updatableAttributeList = null;
-    if (CollectionUtils.isEmpty(dummyCrudDataSet)) {
+
+    if (CollectionUtils.isEmpty(configList)) {
       String fileContent = findStoredDataContent(fileMapping);
       try {
-        dummyCrudDataSet =
-            objectMapper.readValue(fileContent, new TypeReference<List<CrudProjectEntity>>() {
+        configList =
+            objectMapper.readValue(fileContent, new TypeReference<List<SubscriptionConfig>>() {
             });
       } catch (IOException e) {
         log.error("mapping from json to list failed");
       }
     }
-    return null;
+    return configList;
   }
 
-  public List<Location> getAllDummyLocation(FileMappingType fileMapping) {
-    log.info("fetching updatable attributes for fileMapping: {}", fileMapping);
-
-    if (CollectionUtils.isEmpty(dummyLocation)) {
-      String fileContent = findStoredDataContent(fileMapping);
-      try {
-        dummyLocation =
-            objectMapper.readValue(fileContent, new TypeReference<List<Location>>() {
-            });
-      } catch (IOException e) {
-        log.error("mapping from json to list failed");
-      }
-    }
-    return dummyLocation;
-  }
-
-
-  public List<User> getAllDummyUser(FileMappingType fileMapping) {
-    log.info("fetching updatable attributes for fileMapping: {}", fileMapping);
-
-    if (CollectionUtils.isEmpty(dummyUser)) {
-      String fileContent = findStoredDataContent(fileMapping);
-      try {
-        dummyUser =
-            objectMapper.readValue(fileContent, new TypeReference<List<User>>() {
-            });
-      } catch (IOException e) {
-        log.error("mapping from json to list failed");
-      }
-    }
-    return dummyUser;
-  }
-
-  public <T> T mapStringToType(String fileData, Class<T> t) {
-    try {
-      return objectMapper.readValue(fileData, t);
-    } catch (IOException e) {
-      log.error(
-          "exception occurred while mapping fileData: {} ,to type: {}, "
-              + "exception : {}", fileData, t, e);
-      throw new CrudProjectException(CrudProjectStatusCode.STRING_MAPPING_FAILED);
-    }
+  public File getFileObject(FileMappingType fileMappingType) {
+    return new File(fileMappingType.filePath);
   }
 }
 

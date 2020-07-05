@@ -7,12 +7,20 @@ import java.util.List;
 
 
 public enum FileMappingType {
-  STORED_DATA(FileMappingConstants.STORED_DATA, FileMappingConstants.STORED_DATA_FILE_PATH),
-  LOCATION_DATA(FileMappingConstants.LOCATION_DATA, FileMappingConstants.LOCATION_DATA_FILE_PATH),
-  USER_DATA(FileMappingConstants.LOCATION_DATA, FileMappingConstants.LOCATION_DATA_FILE_PATH);
+  STORED_DATA(FileMappingConstants.SUBSCRIPTION_CONFIG,
+      FileMappingConstants.SUBSCRIPTION_CONFIG_FILE_PATH, Boolean.TRUE),
+  TRADE_DATA(FileMappingConstants.TRADE_DATA, FileMappingConstants.TRADE_DATA_FILE_PATH,
+      Boolean.FALSE);
 
   public String workflow;
   public String filePath;
+  public Boolean loadOnInit;
+
+  FileMappingType(String workflow, String filePath, Boolean loadOnInit) {
+    this.workflow = workflow;
+    this.filePath = filePath;
+    this.loadOnInit = loadOnInit;
+  }
 
   FileMappingType(String indicesName, String filePath) {
     this.workflow = indicesName;
