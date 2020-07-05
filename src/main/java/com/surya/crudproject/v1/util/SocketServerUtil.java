@@ -18,7 +18,7 @@ public class SocketServerUtil {
   public SocketServerUtil(int port) {
     try {
       ServerSocket ss = new ServerSocket(port);
-      runSocketListener();
+      //runSocketListener();
       Socket s = ss.accept();
       dout = new DataOutputStream(s.getOutputStream());
     } catch (IOException e) {
